@@ -46,22 +46,25 @@ class App extends React.Component {
   }
   render() {
     return (
-      <>
-        <h1>City Explore</h1>
-
-        <form onSubmit={this.getCityData}>
-          <label htmlFor="">Pick a City!
-            <input type="text" onInput={this.handleInput} />
-            <button type='submit'>Explore</button>
-          </label>
-        </form>
         
+        <div className="Site">
+          <header className="Site-Header">
+            <h1>City Explore</h1>
+          </header>
+          <form onSubmit={this.getCityData}>
+            <label htmlFor="">Pick a City!
+              <input type="text" onInput={this.handleInput} />
+              <button type='submit'>Explore</button>
+            </label>
+          </form>
+
         {
+
           this.state.error
             ? <p>{this.state.errorMessage}</p>
             : <Card style={{ width: '18rem' }}>
               <Card.Body>
-                {/* <Card.Img variant="top" src={} alt={cityData.display_name} />  */}
+              <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}`} alt={this.state.cityData.display_name} />
 
                 <Card.Title>{this.state.cityData.display_name}</Card.Title>
                 <Card.Text>{this.state.cityData.lat}</Card.Text>
@@ -69,13 +72,14 @@ class App extends React.Component {
 
               </Card.Body>
             </Card>
-
-
         }
-      </>
-    )
-  }
+        </div>
 
+      
+      );
+    }
 }
 
-export default App;
+        
+
+        export default App;
