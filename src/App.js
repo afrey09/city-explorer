@@ -37,8 +37,8 @@ class App extends React.Component {
         error: false,
         cityMap: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_KEY}&center=${cityData.lat},${cityData.lon}&size=500x500&zoom=14`
       })
-    } 
-      catch (error) {
+    }
+    catch (error) {
       console.log(error);
       this.setState({
         error: true,
@@ -48,35 +48,40 @@ class App extends React.Component {
   }
   render() {
     return (
-      <>
-        <h1>City Explore</h1>
 
+      <div className="App">
+        <header className="App-Header">
+          <h1>City Explore</h1>
+        </header>
         <form onSubmit={this.getCityData}>
           <label htmlFor="">Pick a City!
             <input type="text" onInput={this.handleInput} />
             <button type='submit'>Explore</button>
           </label>
         </form>
-        
+
         {
+
           this.state.error
             ? <p>{this.state.errorMessage}</p>
             : <Card style={{ width: '18rem' }}>
               <Card.Body>
-                 <Card.Img variant="top" src={this.state.cityMap}/> 
+                <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}`} alt={this.state.cityData.display_name} />
+
                 <Card.Title>{this.state.cityData.display_name}</Card.Title>
                 <Card.Text>{this.state.cityData.lat}</Card.Text>
                 <Card.Text>{this.state.cityData.lon}</Card.Text>
 
               </Card.Body>
             </Card>
-
-
         }
-      </>
-    )
-  }
+      </div>
 
+
+    );
+  }
 }
+
+
 
 export default App;
