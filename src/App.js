@@ -47,8 +47,8 @@ class App extends React.Component {
   render() {
     return (
         
-        <div className="Site">
-          <header className="Site-Header">
+        <div className="App">
+          <header className="App-Header">
             <h1>City Explore</h1>
           </header>
           <form onSubmit={this.getCityData}>
