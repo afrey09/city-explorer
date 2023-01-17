@@ -34,9 +34,11 @@ class App extends React.Component {
 
       this.setState({
         cityData: cityDataFromAxios.data[0],
-        error: false
+        error: false,
+        cityMap: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_KEY}&center=${cityData.lat},${cityData.lon}&size=500x500&zoom=14`
       })
-    } catch (error) {
+    } 
+      catch (error) {
       console.log(error);
       this.setState({
         error: true,
@@ -61,8 +63,7 @@ class App extends React.Component {
             ? <p>{this.state.errorMessage}</p>
             : <Card style={{ width: '18rem' }}>
               <Card.Body>
-                {/* <Card.Img variant="top" src={} alt={cityData.display_name} />  */}
-
+                 <Card.Img variant="top" src={this.state.cityMap}/> 
                 <Card.Title>{this.state.cityData.display_name}</Card.Title>
                 <Card.Text>{this.state.cityData.lat}</Card.Text>
                 <Card.Text>{this.state.cityData.lon}</Card.Text>
