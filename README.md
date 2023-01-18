@@ -20,7 +20,7 @@ Name of feature: Lab 7
 
 Estimate of time needed to complete: 5 hrs
 
-Start time: 
+Start time: Tuesday 1/17 1:30pm-8:15pm
 
 Finish time: 
 
