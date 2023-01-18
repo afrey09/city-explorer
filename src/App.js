@@ -3,6 +3,7 @@ import './App.css';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
+import Weather from './Weather';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +12,10 @@ class App extends React.Component {
       city: '',
       cityData: [],
       error: false,
-      errorMessage: ''
+      errorMessage: '',
+      weatherData: [],
+      showWeather: false
+
 
     }
   }
@@ -29,17 +33,40 @@ class App extends React.Component {
       let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
 
       let cityDataFromAxios = await axios.get(url)
+
       console.log(url);
       console.log(cityDataFromAxios);
 
       this.setState({
         cityData: cityDataFromAxios.data[0],
         error: false,
-        cityMap: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_KEY}&center=${cityData.lat},${cityData.lon}&size=500x500&zoom=14`
+        cityMap: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&size=500x500&zoom=14`
       })
+      //handleWeather
     }
     catch (error) {
       console.log(error);
+      this.setState({
+        error: true,
+        errorMessage: error.message
+      })
+    }
+  }
+
+  handleWeather = async () => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/weather?city_name=${this.state.city}`;
+
+      let weatherData = await axios.get(url);
+
+      //console.log(weatherData);
+
+      this.setState({
+        weatherData: weatherData.data,
+        showWeather: true
+      })
+
+    } catch (error) {
       this.setState({
         error: true,
         errorMessage: error.message
@@ -63,14 +90,20 @@ class App extends React.Component {
         {
 
           this.state.error
+
+
             ? <p>{this.state.errorMessage}</p>
+
+
             : <Card style={{ width: '18rem' }}>
               <Card.Body>
+                
                 <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}`} alt={this.state.cityData.display_name} />
 
                 <Card.Title>{this.state.cityData.display_name}</Card.Title>
                 <Card.Text>{this.state.cityData.lat}</Card.Text>
                 <Card.Text>{this.state.cityData.lon}</Card.Text>
+                
 
               </Card.Body>
             </Card>
