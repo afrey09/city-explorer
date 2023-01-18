@@ -3,6 +3,7 @@ import './App.css';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
+import Weather from './Weather';
 
 
 class App extends React.Component {
@@ -34,8 +35,13 @@ class App extends React.Component {
 
       let cityDataFromAxios = await axios.get(url)
 
-      console.log(url);
-      console.log(cityDataFromAxios);
+      let lat = cityDataFromAxios.data[0].lat
+       let lon = cityDataFromAxios.data[0].lon
+      
+       this.handleGetWeather (lat,lon);
+       
+       console.log(url);
+       console.log(cityDataFromAxios);
 
       this.setState({
         cityData: cityDataFromAxios.data[0],
@@ -53,16 +59,22 @@ class App extends React.Component {
     }
   }
 
-  handleWeather = async () => {
+  handleGetWeather = async (lat, lon) => {
     try {
-      let url = `${process.env.REACT_APP_SERVER}/weather?city_name=${this.state.city}`;
 
-      let weatherData = await axios.get(url);
+      //TODO: build URL
+      let url = `${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}&searchQuery=${this.state.city}`;
+      
+      //TODO: Use axios to hit my server
+      let weatherDataFromAxios = await axios.get(url);
+      
+      //TODO: Save that weather data to state
 
-      //console.log(weatherData);
+      console.log('ashdflaksdfhaslkdfjh',weatherDataFromAxios);
+      
 
       this.setState({
-        weatherData: weatherData.data,
+        weatherData: weatherDataFromAxios.data,
         showWeather: true
       })
 
@@ -95,7 +107,8 @@ class App extends React.Component {
             ? <p>{this.state.errorMessage}</p>
 
 
-            : <Card style={{ width: '18rem' }}>
+            :<>
+             <Card style={{ width: '18rem' }}>
               <Card.Body>
                 
                 <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}`} alt={this.state.cityData.display_name} />
@@ -107,6 +120,8 @@ class App extends React.Component {
 
               </Card.Body>
             </Card>
+            {this.state.showWeather&&<Weather weatherData={this.state.weatherData}/>}
+            </>
         }
       </div>
 
