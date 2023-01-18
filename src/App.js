@@ -3,7 +3,7 @@ import './App.css';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
-import Weather from './Weather';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -103,7 +103,7 @@ class App extends React.Component {
                 <Card.Title>{this.state.cityData.display_name}</Card.Title>
                 <Card.Text>{this.state.cityData.lat}</Card.Text>
                 <Card.Text>{this.state.cityData.lon}</Card.Text>
-                
+
 
               </Card.Body>
             </Card>
