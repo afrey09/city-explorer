@@ -149,7 +149,7 @@ render() {
               </Card.Body>
             </Card>
             {this.state.showWeather && <Weather weatherData={this.state.weatherData} />}
-            {this.state.showWeather && <Movies moviesData={this.state.movieData} />}
+            {this.state.showWeather && <Movies movieData={this.state.movieData} />}
           </>
       }
     </div>

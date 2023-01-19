@@ -1,24 +1,21 @@
 import React from "react";
-import Card from "react-bootstrap/Card";
+import Movie from "./Movie";
+
 
 
 class Movies extends React.Component {
   render() {
     return (
       <>
-        <h1>Movies</h1>
-        
-        {this.props.moviesData.map((movie) => {
+        {this.props.movieData.map((movie, idx) => {
           return (
-            <Card style={{ width: '18rem' }}>
-              <Card.Body>
-                <Card.Title>Title: {movie.title}</Card.Title>
-                <Card.Text>Description: {movie.overview}:</Card.Text>
-              </Card.Body>
-            </Card>
+            <Movie key={idx} title={movie.title} overview={movie.overview} />
+
           )
-          })}     
-        </> 
+        }
+      )
+    }
+      </>
     )
   };
 }
