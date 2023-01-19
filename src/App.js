@@ -91,6 +91,7 @@ class App extends React.Component {
   handleMovies = async () => {
     try {
       //TODO Build URl
+      //!http://locathost:3001/movies?searchQuery=seattle
       let url = `${process.env.REACT_APP_SERVER}/movies?searchQuery=${this.state.city}`
 
       //TODO Use axios to hit my server
@@ -104,6 +105,10 @@ class App extends React.Component {
       })
 
     } catch (error) {
+      this.setState({
+        movieError:true,
+        movieErrormessage:error.message
+      })
 
     }
   }
