@@ -48,6 +48,4 @@ Finish time: 3:30
 
 Actual time needed to complete: 2 hr
 
-
-![WRRC](/images/WRRC.jpg)
-
+![WRRC](./src/images/WRRC.jpg)
